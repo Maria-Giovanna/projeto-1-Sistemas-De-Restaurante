@@ -41,7 +41,6 @@ public class Pedido {
     }
 
     //METODOS
-
     public void adicionarItemAoPedido(Lanche lanche){
         itensDoPedido.add(lanche);
     }
@@ -54,8 +53,4 @@ public class Pedido {
         }
         return totalDoPedido;
     }
-
-
-
-
 }
