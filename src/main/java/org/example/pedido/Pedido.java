@@ -13,11 +13,11 @@ public class Pedido {
 
     //SETTERS (numero do pedido e itens serão ESCOLHIDOS, n setados pela pessoa)
     public void setNomeDoCliente(String nomeDoCliente) {
-        if (nomeDoCliente == null|| nomeDoCliente.trim().isEmpty()){
+        if (nomeDoCliente == null || nomeDoCliente.trim().isEmpty()) {
             //não pode nenhum tipo de espaço vazio
             throw new IllegalArgumentException("O nome do cliente não pode ser em branco");
         }
-         this.nomeDoCliente = nomeDoCliente.trim();
+        this.nomeDoCliente = nomeDoCliente.trim();
     }
 
     //GETTERS
@@ -34,22 +34,22 @@ public class Pedido {
     }
 
     //CONSTRUTOR
-    public Pedido(String nomeDoCliente, int numeroDoPedido){
+    public Pedido(String nomeDoCliente, int numeroDoPedido) {
         setNomeDoCliente(nomeDoCliente);
-        this.numeroDoPedido= numeroDoPedido;
-        this.itensDoPedido= new ArrayList<>();
+        this.numeroDoPedido = numeroDoPedido;
+        this.itensDoPedido = new ArrayList<>();
     }
 
     //METODOS
-    public void adicionarItemAoPedido(Lanche lanche){
+    public void adicionarItemAoPedido(Lanche lanche) {
         itensDoPedido.add(lanche);
     }
 
-    public double calcularOTotalDoPedido(){
+    public double calcularOTotalDoPedido() {
         double totalDoPedido = 0;
 
-        for (int i=0; i< itensDoPedido.size(); i++){
-            totalDoPedido+= itensDoPedido.get(i).getPrecoDoLanche();
+        for (int i = 0; i < itensDoPedido.size(); i++) {
+            totalDoPedido += itensDoPedido.get(i).getPrecoDoLanche();
         }
         return totalDoPedido;
     }

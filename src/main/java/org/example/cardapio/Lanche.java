@@ -7,7 +7,7 @@ public class Lanche {
 
     //SETS
     public void setNomeDoLanche(String nomeDoLanche) {
-        if (nomeDoLanche == null|| nomeDoLanche.trim().isEmpty()){
+        if (nomeDoLanche == null || nomeDoLanche.trim().isEmpty()) {
             //não pode nenhum tipo de espaço vazio
             throw new IllegalArgumentException("O nome do lanche não pode ser em branco");
         }
@@ -15,7 +15,7 @@ public class Lanche {
     }
 
     public void setPrecoDoLanche(double precoDoLanche) {
-        if (precoDoLanche <0){
+        if (precoDoLanche < 0) {
             throw new IllegalArgumentException("O preço não pode ser negativo!");
         }
         this.precoDoLanche = precoDoLanche;
@@ -26,11 +26,11 @@ public class Lanche {
         return nomeDoLanche.trim();
     }
 
-    public double getPrecoDoLanche(){
+    public double getPrecoDoLanche() {
         return precoDoLanche;
     }
 
-    public Lanche(String nomeDoLanche, double precoDoLanche){
+    public Lanche(String nomeDoLanche, double precoDoLanche) {
         setNomeDoLanche(nomeDoLanche);
         setPrecoDoLanche(precoDoLanche);
     }
