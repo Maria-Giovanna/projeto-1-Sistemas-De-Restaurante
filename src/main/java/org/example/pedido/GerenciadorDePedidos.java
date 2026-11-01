@@ -4,17 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class GerenciadorDePedidos {
-    //SINGLETON
-    private static GerenciadorDePedidos instancia;
-    private GerenciadorDePedidos(){}
-
-    public static GerenciadorDePedidos getInstancia() {
-        if (instancia == null){
-            instancia = new GerenciadorDePedidos();
-        }
-        return instancia;
-    }
-
     //ATRIBUTOS
     private HashMap<Integer,Pedido> pastaComTodosOsPedidos = new HashMap<>();
     private int contadorDePedidosNaPasta = 1;
