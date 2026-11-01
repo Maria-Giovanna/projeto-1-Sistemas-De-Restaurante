@@ -13,7 +13,7 @@ public class MenuConsole {
     //======================METODOS================================
 
     //LEITURA
-    public int lerOpcoes(){
+    public int lerOpcoes() {
         System.out.println("\n=================");
         System.out.println("Digite uma opção:");
         int opcaoEscolhida = scanner.nextInt();
@@ -22,14 +22,14 @@ public class MenuConsole {
         return opcaoEscolhida;
     }
 
-    public String lerNomeDoCliente(){
+    public String lerNomeDoCliente() {
         System.out.println("\n=================");
         System.out.println("Qual o nome do cliente");
 
         return scanner.nextLine();
     }
 
-    public int lerOpcaoDeLanche(){
+    public int lerOpcaoDeLanche() {
         System.out.println("\n======= CARDÁPIO =======");
         System.out.println("1 - X-Burger  | R$ 16,00");
         System.out.println("2 - X-Salada  | R$ 18,00");
@@ -43,25 +43,25 @@ public class MenuConsole {
         return opcaoDeLanche;
     }
 
-    public boolean lerSeQuerAdicionarMaisUmItem(String lerNomeDoCliente){
-        while(true){
+    public boolean lerSeQuerAdicionarMaisUmItem(String lerNomeDoCliente) {
+        while (true) {
             System.out.printf("Deseja adicionar mais um item, %s?", lerNomeDoCliente);
             System.out.println("Responda com s (sim) ou n (não)!");
             System.out.println("========================");
             String resposta = scanner.nextLine().trim();
 
-            if (resposta.equalsIgnoreCase("s")){
+            if (resposta.equalsIgnoreCase("s")) {
                 return true;
             } else if (resposta.equalsIgnoreCase("n")) {
                 return false;
-            }else{
+            } else {
                 System.out.println("Ops, responda apenas com s ou n");
             }
         }
     }
 
     //EXIBIÇÃO
-    public void exibirMenu(){
+    public void exibirMenu() {
         System.out.println("\n======= RESTAURANTE =======");
         System.out.println("1 - Registrar novo pedido");
         System.out.println("2 - Listar pedidos do dia");
@@ -70,12 +70,12 @@ public class MenuConsole {
     }
 
 
-    public void exibirPedido(Pedido pedido){
+    public void exibirPedido(Pedido pedido) {
         System.out.println("========================");
         System.out.printf("\n====Pedido nº %d====\nCliente: %s%n", pedido.getNumeroDoPedido(), pedido.getNomeDoCliente());
         System.out.println("_________________________");
 
-        for (Lanche lanche : pedido.getItensDoPedido()){
+        for (Lanche lanche : pedido.getItensDoPedido()) {
             System.out.printf("\n%-s --- R$%.2f%n", lanche.getNomeDoLanche(), lanche.getPrecoDoLanche());
         }
         System.out.printf("Valor total do pedido: R$%.2f%n", pedido.calcularOTotalDoPedido());
@@ -94,7 +94,7 @@ public class MenuConsole {
         }
     }
 
-    public void exibirFechamentoDoDia(double totalDoDia){
+    public void exibirFechamentoDoDia(double totalDoDia) {
         System.out.println("\n======= FECHAMENTO DO DIA =======");
         System.out.printf("Total vendido hoje: R$ %.2f%n", totalDoDia);
     }
@@ -107,7 +107,7 @@ public class MenuConsole {
     }
 
     public void exibirMensagemDeErro(String mensagem) {
-        System.out.printf("Erro ⚠ :"+ mensagem);
+        System.out.printf("Erro ⚠ :" + mensagem);
     }
 
     public void exibirMensagemDeDespedida() {
