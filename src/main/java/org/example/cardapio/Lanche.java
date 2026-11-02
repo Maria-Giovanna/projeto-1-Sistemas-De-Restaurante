@@ -1,6 +1,7 @@
 package org.example.cardapio;
 
-public class Lanche {
+public class Lanche implements ItemCardapio {
+
     private String nomeDoLanche;
     private double precoDoLanche;
 
@@ -22,11 +23,13 @@ public class Lanche {
     }
 
     //GETS
-    public String getNomeDoLanche() {
+    @Override
+    public String getDescricao() {
         return nomeDoLanche.trim();
     }
 
-    public double getPrecoDoLanche() {
+    @Override
+    public double getPreco() {
         return precoDoLanche;
     }
 

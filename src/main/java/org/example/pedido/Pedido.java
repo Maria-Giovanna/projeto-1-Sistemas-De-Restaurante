@@ -52,7 +52,7 @@ public class Pedido {
         double totalDoPedido = 0;
 
         for (int i = 0; i < itensDoPedido.size(); i++) {
-            totalDoPedido += itensDoPedido.get(i).getPrecoDoLanche();
+            totalDoPedido += itensDoPedido.get(i).getPreco();
         }
         return totalDoPedido;
     }

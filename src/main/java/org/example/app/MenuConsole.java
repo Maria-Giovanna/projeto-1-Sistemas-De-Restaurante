@@ -75,7 +75,7 @@ public class MenuConsole {
         System.out.println("_________________________");
 
         for (Lanche lanche : pedido.getItensDoPedido()) {
-            System.out.printf("%-12s --- R$%.2f%n", lanche.getNomeDoLanche(), lanche.getPrecoDoLanche());
+            System.out.printf("%-12s --- R$%.2f%n", lanche.getDescricao(), lanche.getPreco());
         }
         System.out.printf("\nValor total do pedido: R$%.2f%n", pedido.calcularOTotalDoPedido());
     }
