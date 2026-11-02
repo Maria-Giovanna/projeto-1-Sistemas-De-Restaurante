@@ -16,8 +16,11 @@ public class Pedido {
         if (nomeDoCliente == null || nomeDoCliente.trim().isEmpty()) {
             //não pode nenhum tipo de espaço vazio
             throw new IllegalArgumentException("O nome do cliente não pode ser em branco");
+        } else if (nomeDoCliente.trim().length()<3) {
+            throw new IllegalArgumentException("O nome do cliente precisa ter pelo menos 3 letras");
+        }else{
+            this.nomeDoCliente = nomeDoCliente.trim();
         }
-        this.nomeDoCliente = nomeDoCliente.trim();
     }
 
     //GETTERS
