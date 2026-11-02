@@ -31,11 +31,11 @@ public class MenuConsole {
 
     public int lerOpcaoDeLanche() {
         System.out.println("\n======= CARDÁPIO =======");
-        System.out.println("1 - X-Burger  | R$ 16,00");
-        System.out.println("2 - X-Salada  | R$ 18,00");
-        System.out.println("3 - X-Bacon   | R$ 22,00");
-        System.out.println("4 - Big burger  | R$ 43,90");
-        System.out.print("Qual lanche você quer? ");
+        System.out.println("1 - X-Burger  | R$ 32,90");
+        System.out.println("2 - X-Salada  | R$ 37,60");
+        System.out.println("3 - X-Bacon   | R$ 44,80");
+        System.out.println("4 - X-Big     | R$ 44,80");
+        System.out.print("\nQual lanche você quer? ");
 
         int opcaoDeLanche = scanner.nextInt();
         scanner.nextLine();
@@ -45,8 +45,8 @@ public class MenuConsole {
 
     public boolean lerSeQuerAdicionarMaisUmItem(String lerNomeDoCliente) {
         while (true) {
-            System.out.printf("Deseja adicionar mais um item, %s?", lerNomeDoCliente);
-            System.out.println("Responda com s (sim) ou n (não)!");
+            System.out.printf("\nDeseja adicionar mais um item, %s?", lerNomeDoCliente);
+            System.out.println("\nResponda com s (sim) ou n (não)!");
             System.out.println("========================");
             String resposta = scanner.nextLine().trim();
 
@@ -55,7 +55,7 @@ public class MenuConsole {
             } else if (resposta.equalsIgnoreCase("n")) {
                 return false;
             } else {
-                System.out.println("Ops, responda apenas com s ou n");
+                System.out.println("\nOps, responda apenas com s ou n\n");
             }
         }
     }
@@ -69,22 +69,22 @@ public class MenuConsole {
         System.out.println("0 - Sair");
     }
 
-
     public void exibirPedido(Pedido pedido) {
         System.out.println("========================");
         System.out.printf("\n====Pedido nº %d====\nCliente: %s%n", pedido.getNumeroDoPedido(), pedido.getNomeDoCliente());
         System.out.println("_________________________");
 
         for (Lanche lanche : pedido.getItensDoPedido()) {
-            System.out.printf("\n%-s --- R$%.2f%n", lanche.getNomeDoLanche(), lanche.getPrecoDoLanche());
+            System.out.printf("%-12s --- R$%.2f%n", lanche.getNomeDoLanche(), lanche.getPrecoDoLanche());
         }
-        System.out.printf("Valor total do pedido: R$%.2f%n", pedido.calcularOTotalDoPedido());
+        System.out.printf("\nValor total do pedido: R$%.2f%n", pedido.calcularOTotalDoPedido());
     }
-
 
     //REVISAR
     public void exibirPedidosDoDia(Collection<Pedido> getTodosOsPedidosDoFichario) {
+        System.out.println("\n==========================");
         System.out.println("\n===== PEDIDOS DO DIA =====");
+        System.out.println("\n==========================");
         if (getTodosOsPedidosDoFichario.isEmpty()) {
             System.out.println("Ainda não temos nenhum pedido para hoje :(");
             return;
@@ -95,15 +95,15 @@ public class MenuConsole {
     }
 
     public void exibirFechamentoDoDia(double totalDoDia) {
+        System.out.println("\n=================================");
         System.out.println("\n======= FECHAMENTO DO DIA =======");
-        System.out.printf("Total vendido hoje: R$ %.2f%n", totalDoDia);
+
+        System.out.printf("\nTotal vendido hoje: R$ %.2f%n", totalDoDia);
     }
 
     //EXIBIR MENSAGENS
-
-
-    public void exibirOpcaoInvalida(String nome) {
-        System.out.printf("Ops, parece que essa opção não existe %s. Tente de novo! :)", nome);
+    public void exibirOpcaoInvalida() {
+        System.out.printf("Ops, parece que essa opção não existe. Tente de novo! :)");
     }
 
     public void exibirMensagemDeErro(String mensagem) {
