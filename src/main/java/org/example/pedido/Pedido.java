@@ -1,8 +1,6 @@
 package org.example.pedido;
 
 import org.example.cardapio.ItemCardapio;
-import org.example.cardapio.Lanche;
-
 import java.util.ArrayList;
 
 public class Pedido {

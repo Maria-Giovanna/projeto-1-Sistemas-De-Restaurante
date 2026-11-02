@@ -41,6 +41,25 @@ public class RestauranteFacade {
         }
     }
 
+    public void retirarOuDevolverIngrediente(Lanche lanche, int opcaoDeRetirarOIngrediente){
+        switch (opcaoDeRetirarOIngrediente){
+            case 1:
+                lanche.setQueijo(!lanche.isQueijo());
+                break;
+            case 2:
+                lanche.setAlface(!lanche.isAlface());
+                break;
+            case 3:
+                lanche.setTomate(!lanche.isTomate());
+                break;
+            case 4:
+                lanche.setCebola(!lanche.isCebola());
+                break;
+            default:
+                throw new IllegalArgumentException("Esse ingrediente não existe!\nEscolha uma das opções disponivel: 1 (queijo), 2 (alface), 3 (tomate) ou 4 (cebola)");
+        }
+    }
+
     public void adicionarItemNoPedido(Pedido pedido, ItemCardapio item){
         pedido.adicionarItemAoPedido(item);
     }

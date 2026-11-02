@@ -32,19 +32,18 @@ public class MenuConsole {
 
     public int lerOpcaoDeLanche() {
         System.out.println("\n======= CARDÁPIO =======");
-        System.out.println("1 - X-Burger  | R$ 32,90");
+        System.out.println("1 - X-Burguer  | R$ 32,90");
         System.out.println("2 - X-Salada  | R$ 37,60");
         System.out.println("3 - X-Bacon   | R$ 44,80");
         System.out.println("4 - X-Big     | R$ 44,80");
         System.out.print("\nQual lanche você quer? ");
-
         int opcaoDeLanche = scanner.nextInt();
-        scanner.nextLine();
 
+        scanner.nextLine();
         return opcaoDeLanche;
     }
 
-    public int lerOpcaoDeAdicionais(String descricaoAtual){
+    public int lerOpcaoDeAdicionais(String descricaoAtual) {
         System.out.println("\n======= ADICIONAIS =======");
         System.out.println("Seu item até agora: " + descricaoAtual);
         System.out.println("1 - Cheddar      | + R$ 4,00");
@@ -57,6 +56,32 @@ public class MenuConsole {
         return opcaoDeAdicional;
     }
 
+    //metodo de tirar ou devolver
+    public String textoDeOpcao(boolean temOuNaoOIngrediente, String nomeDoIngrediente) {
+        if (temOuNaoOIngrediente) {
+            return "Tirar " + nomeDoIngrediente;
+        } else {
+            return "Colocar " + nomeDoIngrediente + " (você removeu)";
+        }
+    }
+
+    public int lerIngredientesParaRetirarDoLanche(String descricaoAtual, String nomeDoCliente, Lanche lanche) {
+        System.out.println("\n======= INGREDIENTES =======");
+        System.out.println("Seu lanche até agora: " + descricaoAtual);
+
+        System.out.printf("\nDeseja retirar ou adicionar algum dos ingredientes, %s?", nomeDoCliente);
+        System.out.printf("\n1 - %s", textoDeOpcao(lanche.isQueijo(), "Queijo"));
+        System.out.printf("\n2 - %s", textoDeOpcao(lanche.isAlface(), "Alface"));
+        System.out.printf("\n3 - %s", textoDeOpcao(lanche.isTomate(), "Tomate"));
+        System.out.printf("\n4 - %s", textoDeOpcao(lanche.isCebola(), "Cebola"));
+        System.out.println("\n0 - Manter o lanche do jeito que está");
+
+        System.out.print("\nEscolha: ");
+        int opcaoDeRetirarOIngrediente = scanner.nextInt();
+        scanner.nextLine();
+
+        return opcaoDeRetirarOIngrediente;
+    }
 
     public boolean lerSeQuerAdicionarMaisUmItem(String lerNomeDoCliente) {
         while (true) {
@@ -97,7 +122,7 @@ public class MenuConsole {
         System.out.println("_________________________");
 
         for (ItemCardapio lanche : pedido.getItensDoPedido()) {
-            System.out.printf("%-12s --- R$%.2f%n", lanche.getDescricao(), lanche.getPreco());
+            System.out.printf("%-40s --- R$%.2f%n", lanche.getDescricao(), lanche.getPreco());
         }
         System.out.printf("\nValor total do pedido: R$%.2f%n", pedido.calcularOTotalDoPedido());
     }
@@ -125,11 +150,11 @@ public class MenuConsole {
 
     //EXIBIR MENSAGENS
     public void exibirOpcaoInvalida() {
-        System.out.printf("Ops, parece que essa opção não existe. Tente de novo! :)");
+        System.out.println("Ops, parece que essa opção não existe. Tente de novo! :)");
     }
 
     public void exibirMensagemDeErro(String mensagem) {
-        System.out.printf("Erro ⚠ :" + mensagem);
+        System.out.println("Erro ⚠ :" + mensagem);
     }
 
     public void exibirMensagemDeDespedida() {
