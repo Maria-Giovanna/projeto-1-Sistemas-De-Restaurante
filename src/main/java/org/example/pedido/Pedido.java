@@ -1,5 +1,6 @@
 package org.example.pedido;
 
+import org.example.cardapio.ItemCardapio;
 import org.example.cardapio.Lanche;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class Pedido {
     //ATRIBUTOS
     private String nomeDoCliente;
     private int numeroDoPedido;
-    private ArrayList<Lanche> itensDoPedido;
+    private ArrayList<ItemCardapio> itensDoPedido;
 
     //SETTERS (numero do pedido e itens serão ESCOLHIDOS, n setados pela pessoa)
     public void setNomeDoCliente(String nomeDoCliente) {
@@ -32,7 +33,7 @@ public class Pedido {
         return this.numeroDoPedido;
     }
 
-    public ArrayList<Lanche> getItensDoPedido() {
+    public ArrayList<ItemCardapio> getItensDoPedido() {
         return itensDoPedido;
     }
 
@@ -44,8 +45,8 @@ public class Pedido {
     }
 
     //METODOS
-    public void adicionarItemAoPedido(Lanche lanche) {
-        itensDoPedido.add(lanche);
+    public void adicionarItemAoPedido(ItemCardapio itemDoCardapio) {
+        itensDoPedido.add(itemDoCardapio);
     }
 
     public double calcularOTotalDoPedido() {

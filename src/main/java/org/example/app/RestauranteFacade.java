@@ -33,7 +33,10 @@ public class RestauranteFacade {
     }
 
     public void adicionarLancheNoPedido(Pedido pedido, int opcaoDeLanche){
+        //variavel para guardar a escolha do cliente
         Lanche lancheEscolhido = criarLanche(opcaoDeLanche);
+
+        //adicionamos na comanda a escolha do cliente
         pedido.adicionarItemAoPedido(lancheEscolhido);
     }
 
