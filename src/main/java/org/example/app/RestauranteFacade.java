@@ -1,6 +1,7 @@
 package org.example.app;
 
 import org.example.cardapio.Lanche;
+import org.example.cardapio.LancheFactory;
 import org.example.pedido.GerenciadorDePedidos;
 import org.example.pedido.Pedido;
 
@@ -15,13 +16,13 @@ public class RestauranteFacade {
     private Lanche criarLanche(int opcaoDeLanche){
         switch (opcaoDeLanche){
             case 1:
-                return new Lanche("X-burguer",32.90);
+                return LancheFactory.xBurger();
             case 2:
-                return new Lanche("X-salada",37.60);
+                return LancheFactory.xSalada();
             case 3:
-                return new Lanche("X-bacon",44.80);
+                return LancheFactory.xBacon();
             case 4:
-                return new Lanche("X-big",44.80);
+                return LancheFactory.xBig();
             default:
                 throw new IllegalArgumentException("Essa opção não existe no cardápio!\nSelecione uma das opções no menu: 1, 2, 3 ou 4");
         }
