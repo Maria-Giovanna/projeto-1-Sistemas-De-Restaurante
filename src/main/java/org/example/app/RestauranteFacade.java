@@ -1,19 +1,16 @@
 package org.example.app;
 
-import org.example.cardapio.Lanche;
-import org.example.cardapio.LancheFactory;
+import org.example.cardapio.*;
 import org.example.pedido.GerenciadorDePedidos;
 import org.example.pedido.Pedido;
-
 import java.util.Collection;
-import java.util.HashMap;
 
 public class RestauranteFacade {
     //ATRIBUTO NECESSÁRIO
     private GerenciadorDePedidos gerenciador = new GerenciadorDePedidos();
 
     //METODO DE ESCOLHA PARA FUNCIONAR O SISTEMA
-    private Lanche criarLanche(int opcaoDeLanche){
+    public Lanche criarLanche(int opcaoDeLanche){
         switch (opcaoDeLanche){
             case 1:
                 return LancheFactory.xBurger();
@@ -33,12 +30,19 @@ public class RestauranteFacade {
         return gerenciador.criarUmNovoPedido(nomeDoCliente);
     }
 
-    public void adicionarLancheNoPedido(Pedido pedido, int opcaoDeLanche){
-        //variavel para guardar a escolha do cliente
-        Lanche lancheEscolhido = criarLanche(opcaoDeLanche);
+    public ItemCardapio colocarAdicional(ItemCardapio item, int opcaoDeAdicional){
+        switch (opcaoDeAdicional){
+            case 1:
+                return new ComCheddar(item);
+            case 2:
+                return new ComBaconExtra(item);
+            default:
+                throw new IllegalArgumentException("Esse adicional não existe!\nEscolha ou 1 ou 2 para adicionar ao seu pedido");
+        }
+    }
 
-        //adicionamos na comanda a escolha do cliente
-        pedido.adicionarItemAoPedido(lancheEscolhido);
+    public void adicionarItemNoPedido(Pedido pedido, ItemCardapio item){
+        pedido.adicionarItemAoPedido(item);
     }
 
     public Collection<Pedido> getPedidosRecebidosNoDia(){

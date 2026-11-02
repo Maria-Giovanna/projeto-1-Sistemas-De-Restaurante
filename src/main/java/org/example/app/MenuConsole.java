@@ -44,6 +44,20 @@ public class MenuConsole {
         return opcaoDeLanche;
     }
 
+    public int lerOpcaoDeAdicionais(String descricaoAtual){
+        System.out.println("\n======= ADICIONAIS =======");
+        System.out.println("Seu item até agora: " + descricaoAtual);
+        System.out.println("1 - Cheddar      | + R$ 4,00");
+        System.out.println("2 - Bacon extra  | + R$ 6,00");
+        System.out.println("0 - Sem mais adicionais");
+        System.out.print("Escolha um adicional: ");
+        int opcaoDeAdicional = scanner.nextInt();
+
+        scanner.nextLine();
+        return opcaoDeAdicional;
+    }
+
+
     public boolean lerSeQuerAdicionarMaisUmItem(String lerNomeDoCliente) {
         while (true) {
             System.out.printf("\nDeseja adicionar mais um item, %s?", lerNomeDoCliente);
@@ -59,6 +73,13 @@ public class MenuConsole {
                 System.out.println("\nOps, responda apenas com s ou n\n");
             }
         }
+    }
+
+    public void exibirMensagemPedidoRegistradoComSucesso(Pedido pedido) {
+        System.out.println("========================");
+        System.out.printf("\nPedido nº %d registrado com sucesso ✅", pedido.getNumeroDoPedido());
+        System.out.printf("\nMuito obrigada, %s! Seu pedido ja foi enviado para a cozinha :)", pedido.getNomeDoCliente());
+        System.out.println("\n========================");
     }
 
     //EXIBIÇÃO
