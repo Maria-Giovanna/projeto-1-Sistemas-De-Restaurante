@@ -1,5 +1,6 @@
 package org.example.app;
 
+import org.example.cardapio.ItemCardapio;
 import org.example.pedido.Pedido;
 
 public class Main {
@@ -49,13 +50,29 @@ public class Main {
 
         do {
             int opcaoDeLanche = menu.lerOpcaoDeLanche();
+
             try {
-                organizadorDoRestaurante.adicionarLancheNoPedido(pedido, opcaoDeLanche);
+                ItemCardapio itemCardapio = organizadorDoRestaurante.criarLanche(opcaoDeLanche);
+
+                int opcaoDeAdicional = menu.lerOpcaoDeAdicionais(itemCardapio.getDescricao());
+                while (opcaoDeAdicional != 0){
+                    try {
+                        itemCardapio = organizadorDoRestaurante.colocarAdicional(itemCardapio, opcaoDeAdicional);
+                    } catch (IllegalArgumentException iae) {
+                        menu.exibirMensagemDeErro(iae.getMessage());
+                    }
+                    opcaoDeAdicional = menu.lerOpcaoDeAdicionais(itemCardapio.getDescricao());
+                }
+                //depois de tudo, oq fazer? adicionar o item na lista do pedido
+                organizadorDoRestaurante.adicionarItemNoPedido(pedido, itemCardapio);
+
             } catch (IllegalArgumentException iae) {
                 menu.exibirMensagemDeErro(iae.getMessage());
             }
-        }while (menu.lerSeQuerAdicionarMaisUmItem(pedido.getNomeDoCliente()));
+        }
+        while (menu.lerSeQuerAdicionarMaisUmItem(pedido.getNomeDoCliente()));
 
         menu.exibirPedido(pedido);
+        menu.exibirMensagemPedidoRegistradoComSucesso(pedido);
     }
 }
