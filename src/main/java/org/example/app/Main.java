@@ -1,6 +1,7 @@
 package org.example.app;
 
 import org.example.cardapio.ItemCardapio;
+import org.example.cardapio.Lanche;
 import org.example.pedido.Pedido;
 
 public class Main {
@@ -9,11 +10,11 @@ public class Main {
         RestauranteFacade organizadorDoRestaurante = new RestauranteFacade();
         boolean restauranteAberto = true;
 
-        while (restauranteAberto){
+        while (restauranteAberto) {
             menu.exibirMenu();
             int opcao = menu.lerOpcoes();
 
-            switch (opcao){
+            switch (opcao) {
                 case 1:
                     registrarNovoPedido(menu, organizadorDoRestaurante);
                     break;
@@ -36,10 +37,10 @@ public class Main {
     }
 
     //METODOS
-    private static void registrarNovoPedido(MenuConsole menu, RestauranteFacade organizadorDoRestaurante){
+    private static void registrarNovoPedido(MenuConsole menu, RestauranteFacade organizadorDoRestaurante) {
         Pedido pedido = null;
 
-        while(pedido == null){
+        while (pedido == null) {
             String nomeDoCliente = menu.lerNomeDoCliente();
             try {
                 pedido = organizadorDoRestaurante.criarPedido(nomeDoCliente);
@@ -51,26 +52,38 @@ public class Main {
         do {
             int opcaoDeLanche = menu.lerOpcaoDeLanche();
 
+            //Pedir o lanche e alterar seus ingredientes
             try {
-                ItemCardapio itemCardapio = organizadorDoRestaurante.criarLanche(opcaoDeLanche);
-
-                int opcaoDeAdicional = menu.lerOpcaoDeAdicionais(itemCardapio.getDescricao());
-                while (opcaoDeAdicional != 0){
+                Lanche lanche = organizadorDoRestaurante.criarLanche(opcaoDeLanche);
+                int opcaoDeIngrediente = menu.lerIngredientesParaRetirarDoLanche(lanche.getDescricao(), pedido.getNomeDoCliente(), lanche);
+                while (opcaoDeIngrediente != 0) {
                     try {
-                        itemCardapio = organizadorDoRestaurante.colocarAdicional(itemCardapio, opcaoDeAdicional);
+                        organizadorDoRestaurante.retirarOuDevolverIngrediente(lanche, opcaoDeIngrediente);
                     } catch (IllegalArgumentException iae) {
                         menu.exibirMensagemDeErro(iae.getMessage());
                     }
-                    opcaoDeAdicional = menu.lerOpcaoDeAdicionais(itemCardapio.getDescricao());
+                    opcaoDeIngrediente = menu.lerIngredientesParaRetirarDoLanche(lanche.getDescricao(), pedido.getNomeDoCliente(), lanche);
                 }
-                //depois de tudo, oq fazer? adicionar o item na lista do pedido
+
+                //Perguntar dos adicionais
+                ItemCardapio itemCardapio = lanche;
+
+                int opcaoDeAdicionais = menu.lerOpcaoDeAdicionais(itemCardapio.getDescricao());
+                while (opcaoDeAdicionais != 0) {
+                    try {
+                        itemCardapio = organizadorDoRestaurante.colocarAdicional(itemCardapio, opcaoDeAdicionais);
+                    } catch (IllegalArgumentException iae) {
+                        menu.exibirMensagemDeErro(iae.getMessage());
+                    }
+                    opcaoDeAdicionais = menu.lerOpcaoDeAdicionais(itemCardapio.getDescricao());
+                }
+
                 organizadorDoRestaurante.adicionarItemNoPedido(pedido, itemCardapio);
 
             } catch (IllegalArgumentException iae) {
                 menu.exibirMensagemDeErro(iae.getMessage());
             }
-        }
-        while (menu.lerSeQuerAdicionarMaisUmItem(pedido.getNomeDoCliente()));
+        } while (menu.lerSeQuerAdicionarMaisUmItem(pedido.getNomeDoCliente()));
 
         menu.exibirPedido(pedido);
         menu.exibirMensagemPedidoRegistradoComSucesso(pedido);
