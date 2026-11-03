@@ -1,7 +1,10 @@
 package org.example.pedido;
 
+import org.example.cardapio.ItemCardapio;
+
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class GerenciadorDePedidos {
     //ATRIBUTOS
@@ -24,6 +27,22 @@ public class GerenciadorDePedidos {
 
     public Pedido buscarUmPedido(int numeroDoPedido) {
         return pastaComTodosOsPedidos.get(numeroDoPedido);
+    }
+
+    public void cancelarUmPedido(int numeroDoPedido){
+        pastaComTodosOsPedidos.remove(numeroDoPedido);
+    }
+
+    public HashSet<String> getTodosOsLanchesDoDiaSemRepetir(){
+        HashSet<String> combinadoDosPedidosRepetidos = new HashSet<>();
+
+        //para cada pedido dentro da pasta, busque todos os itens dentro dos itens do pedido e guarde dentro do hashset.
+        for (Pedido pedido : pastaComTodosOsPedidos.values()){
+            for (ItemCardapio itemCardapio : pedido.getItensDoPedido()){
+                combinadoDosPedidosRepetidos.add(itemCardapio.getDescricao());
+            }
+        }
+        return combinadoDosPedidosRepetidos;
     }
 
     //REVISAR DESTA PARTE

@@ -5,6 +5,8 @@ import org.example.cardapio.Lanche;
 import org.example.pedido.Pedido;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuConsole {
@@ -17,8 +19,7 @@ public class MenuConsole {
     public int lerOpcoes() {
         System.out.println("\n=================");
         System.out.println("Digite uma opção:");
-        int opcaoEscolhida = scanner.nextInt();
-        scanner.nextLine();
+        int opcaoEscolhida = lerNumeroInteiro();
 
         return opcaoEscolhida;
     }
@@ -26,20 +27,27 @@ public class MenuConsole {
     public String lerNomeDoCliente() {
         System.out.println("\n=================");
         System.out.println("Qual o nome do cliente");
+        String nomeDoCliente = scanner.nextLine();
 
-        return scanner.nextLine();
+        return nomeDoCliente;
+    }
+
+    public int lerNumeroDoPedido(){
+        System.out.println("\nQual o número do pedido que procura?");
+        int numeroDoPedido = lerNumeroInteiro();
+
+        return numeroDoPedido;
     }
 
     public int lerOpcaoDeLanche() {
         System.out.println("\n======= CARDÁPIO =======");
-        System.out.println("1 - X-Burguer  | R$ 32,90");
+        System.out.println("1 - X-Burger  | R$ 32,90");
         System.out.println("2 - X-Salada  | R$ 37,60");
         System.out.println("3 - X-Bacon   | R$ 44,80");
         System.out.println("4 - X-Big     | R$ 44,80");
         System.out.print("\nQual lanche você quer? ");
-        int opcaoDeLanche = scanner.nextInt();
+        int opcaoDeLanche = lerNumeroInteiro();
 
-        scanner.nextLine();
         return opcaoDeLanche;
     }
 
@@ -50,9 +58,8 @@ public class MenuConsole {
         System.out.println("2 - Bacon extra  | + R$ 6,00");
         System.out.println("0 - Sem mais adicionais");
         System.out.print("Escolha um adicional: ");
-        int opcaoDeAdicional = scanner.nextInt();
+        int opcaoDeAdicional = lerNumeroInteiro();
 
-        scanner.nextLine();
         return opcaoDeAdicional;
     }
 
@@ -77,8 +84,7 @@ public class MenuConsole {
         System.out.println("\n0 - Manter o lanche do jeito que está");
 
         System.out.print("\nEscolha: ");
-        int opcaoDeRetirarOIngrediente = scanner.nextInt();
-        scanner.nextLine();
+        int opcaoDeRetirarOIngrediente = lerNumeroInteiro();
 
         return opcaoDeRetirarOIngrediente;
     }
@@ -95,16 +101,38 @@ public class MenuConsole {
             } else if (resposta.equalsIgnoreCase("n")) {
                 return false;
             } else {
-                System.out.println("\nOps, responda apenas com s ou n\n");
+                System.out.println("\nResponda apenas com s ou n\n");
             }
         }
     }
 
-    public void exibirMensagemPedidoRegistradoComSucesso(Pedido pedido) {
-        System.out.println("========================");
-        System.out.printf("\nPedido nº %d registrado com sucesso ✅", pedido.getNumeroDoPedido());
-        System.out.printf("\nMuito obrigada, %s! Seu pedido ja foi enviado para a cozinha :)", pedido.getNomeDoCliente());
-        System.out.println("\n========================");
+    public int lerOpcaoDeRevisao() {
+        System.out.println("\n======= REVISAR PEDIDO =======");
+        System.out.println("1 - Acrescentar item ao pedido");
+        System.out.println("2 - Remover item do pedido");
+        System.out.println("3 - Trocar um item do pedido");
+        System.out.println("4 - Cancelar pedido inteiro");
+        System.out.println("0 - Concluir pedido");
+        System.out.print("Escolha: ");
+        int opcaoDeRevisao = lerNumeroInteiro();
+
+        return opcaoDeRevisao;
+    }
+
+    public int lerPosicaoDoItem(Pedido pedido, String acao){
+        System.out.printf("\n======= ITENS DA COMANDA nº %d =======", pedido.getNumeroDoPedido());
+        System.out.println("=======================================");
+
+        int posicao = 1;
+        for (ItemCardapio itemCardapio : pedido.getItensDoPedido()){
+            System.out.printf("%d - %s ---> R$%.2f\n", posicao, itemCardapio.getDescricao(), itemCardapio.getPreco());
+            posicao++;
+        }
+
+        System.out.printf("Qual item você quer alterar, %s?", pedido.getNomeDoCliente());
+        int posicaoEscolhida = lerNumeroInteiro();
+
+        return posicaoEscolhida;
     }
 
     //EXIBIÇÃO
@@ -112,7 +140,8 @@ public class MenuConsole {
         System.out.println("\n======= RESTAURANTE =======");
         System.out.println("1 - Registrar novo pedido");
         System.out.println("2 - Listar pedidos do dia");
-        System.out.println("3 - Fechar restaurante");
+        System.out.println("3 - Consultar um pedido");
+        System.out.println("4 - Fechar restaurante");
         System.out.println("0 - Sair");
     }
 
@@ -141,25 +170,74 @@ public class MenuConsole {
         }
     }
 
-    public void exibirFechamentoDoDia(double totalDoDia) {
+    public void exibirFechamentoDoDia(double totalDoDia, HashSet<String> getTodosOsLanchesDoDiaSemRepetir) {
         System.out.println("\n=================================");
         System.out.println("\n======= FECHAMENTO DO DIA =======");
 
         System.out.printf("\nTotal vendido hoje: R$ %.2f%n", totalDoDia);
+
+        System.out.printf("\nDiferentes tipos de lanches pedidos hoje: %d\n", getTodosOsLanchesDoDiaSemRepetir.size());
+        for (String tiposDeLanches : getTodosOsLanchesDoDiaSemRepetir){
+            System.out.println("--> "+ tiposDeLanches);
+        }
     }
 
     //EXIBIR MENSAGENS
+    public void exibirPedidoNaoEncontrado(int numeroDoPedido) {
+        System.out.printf("Ops, não existe nenhum pedido nº %d :(\n", numeroDoPedido);
+    }
+
+    public void exibirItemAdicionado() {
+        System.out.println("Item acrescentado no pedido com sucesso! ✅");
+    }
+
+    public void exibirItemRemovido() {
+        System.out.println("\nItem removido do pedido com sucesso! ✅");
+    }
+
+    public void exibirItemTrocado() {
+        System.out.println("\nItem trocado com sucesso! ✅");
+    }
+
+    public void exibirPedidoVazio() {
+        System.out.println("\nSeu pedido está vazio! Acrescente pelo menos um item ou cancele todo o pedido.");
+    }
+
+    public void exibirPedidoCancelado(int numeroDoPedido) {
+        System.out.printf("\nPedido nº %d cancelado. Ele não conta mais no total do dia.\n", numeroDoPedido);
+    }
+
     public void exibirOpcaoInvalida() {
-        System.out.println("Ops, parece que essa opção não existe. Tente de novo! :)");
+        System.out.println("\nOps, parece que essa opção não existe. Tente de novo! :)");
     }
 
     public void exibirMensagemDeErro(String mensagem) {
-        System.out.println("Erro ⚠ :" + mensagem);
+        System.out.println("\nErro ⚠ :" + mensagem);
     }
 
     public void exibirMensagemDeDespedida() {
         System.out.println("\nMuito obrigada pelo seu dia de trabalho! Até amanhã :3");
     }
 
+    public void exibirMensagemPedidoRegistradoComSucesso(Pedido pedido) {
+        System.out.println("========================");
+        System.out.printf("\nPedido nº %d registrado com sucesso ✅", pedido.getNumeroDoPedido());
+        System.out.printf("\nMuito obrigada, %s! Seu pedido ja foi enviado para a cozinha :)", pedido.getNomeDoCliente());
+        System.out.println("\n========================");
+    }
+
+    private int lerNumeroInteiro(){
+        while (true){
+            try {
+                int numero = scanner.nextInt();
+                scanner.nextLine();
+
+                return numero;
+            } catch (InputMismatchException ime) {
+               scanner.nextLine();
+                System.out.println("Digite apenas números:");
+            }
+        }
+    }
 
 }

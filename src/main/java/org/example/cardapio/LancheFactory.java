@@ -6,7 +6,7 @@ public class LancheFactory {
 
     //criar cada lanche do cardapio
     public static Lanche xBurger(){
-        return new Lanche("X-Burguer", 32.90);
+        return new Lanche("X-Burger", 32.90);
     }
     public static Lanche xSalada(){
         return new Lanche("X-Salada", 37.60);
