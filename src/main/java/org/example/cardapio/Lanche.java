@@ -1,5 +1,7 @@
 package org.example.cardapio;
 
+import java.util.InputMismatchException;
+
 public class Lanche implements ItemCardapio {
     //ATRIBUTOS
     private String nomeDoLanche;
@@ -23,6 +25,8 @@ public class Lanche implements ItemCardapio {
         if (nomeDoLanche == null || nomeDoLanche.trim().isEmpty()) {
             //não pode nenhum tipo de espaço vazio
             throw new IllegalArgumentException("O nome do lanche não pode ser em branco");
+        } else if (nomeDoLanche.trim().matches("[\\p{L} ]+")) {
+            throw new InputMismatchException("O nome do lanche deve conter apenas letras");
         }
         this.nomeDoLanche = nomeDoLanche.trim();
     }

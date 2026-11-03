@@ -2,6 +2,7 @@ package org.example.pedido;
 
 import org.example.cardapio.ItemCardapio;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Pedido {
 
@@ -10,14 +11,22 @@ public class Pedido {
     private int numeroDoPedido;
     private ArrayList<ItemCardapio> itensDoPedido;
 
+    //CONSTRUTOR
+    public Pedido(String nomeDoCliente, int numeroDoPedido) {
+        setNomeDoCliente(nomeDoCliente);
+        this.numeroDoPedido = numeroDoPedido;
+        this.itensDoPedido = new ArrayList<>();
+    }
+
     //SETTERS (numero do pedido e itens serão ESCOLHIDOS, n setados pela pessoa)
     public void setNomeDoCliente(String nomeDoCliente) {
         if (nomeDoCliente == null || nomeDoCliente.trim().isEmpty()) {
-            //não pode nenhum tipo de espaço vazio
             throw new IllegalArgumentException("O nome do cliente não pode ser em branco");
+        }else if (!nomeDoCliente.trim().matches("[\\p{L} ]+")) {
+            throw new IllegalArgumentException("O nome do cliente só pode ter letras");
         } else if (nomeDoCliente.trim().length()<3) {
             throw new IllegalArgumentException("O nome do cliente precisa ter pelo menos 3 letras");
-        }else{
+        } else{
             this.nomeDoCliente = nomeDoCliente.trim();
         }
     }
@@ -35,16 +44,21 @@ public class Pedido {
         return itensDoPedido;
     }
 
-    //CONSTRUTOR
-    public Pedido(String nomeDoCliente, int numeroDoPedido) {
-        setNomeDoCliente(nomeDoCliente);
-        this.numeroDoPedido = numeroDoPedido;
-        this.itensDoPedido = new ArrayList<>();
+    //METODOS
+    public boolean estaVazio(){
+        return itensDoPedido.isEmpty();
     }
 
-    //METODOS
     public void adicionarItemAoPedido(ItemCardapio itemDoCardapio) {
         itensDoPedido.add(itemDoCardapio);
+    }
+
+    public void removerItemDoPedido(int posicaoNaComanda){
+        int indiceNaLista = posicaoNaComanda - 1;
+        if (indiceNaLista <0 || indiceNaLista >= itensDoPedido.size()){
+            throw new IllegalArgumentException("Esse item não existe na comanda");
+        }
+        itensDoPedido.remove(indiceNaLista);
     }
 
     public double calcularOTotalDoPedido() {
