@@ -2,7 +2,7 @@
 
 Sistema de console em Java para um restaurante: cardápio, pedidos, personalização dos lanches e fechamento do dia.
 
-🎥 **Vídeo:** LINK
+🎥 **Vídeo:**  [Assista ao vídeo clicando aqui](https://youtu.be/QjVbKOVmByU)
 
 ## ▶️ Como rodar
 

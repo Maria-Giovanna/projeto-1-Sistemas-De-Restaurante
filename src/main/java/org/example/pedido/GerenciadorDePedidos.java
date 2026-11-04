@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class GerenciadorDePedidos {
     //ATRIBUTOS
-    private HashMap<Integer, Pedido> pastaComTodosOsPedidos = new HashMap<>();
+     private HashMap<Integer, Pedido> pastaComTodosOsPedidos = new HashMap<>();
     private int contadorDePedidosNaPasta = 1;
 
     //METODOS
